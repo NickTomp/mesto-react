@@ -10,7 +10,7 @@ function App() {
   const [isEditAvatarPopupOpen, SetAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, SetEditProfileOpen] = React.useState(false);
   const [isAddPlacePopupOpen, SetAddPlacePopupOpen] = React.useState(false);
-  const [selectedCard, handleCardClick] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
   function handleEditAvatarClick() {
     SetAvatarPopupOpen(true)
   }
@@ -24,15 +24,15 @@ function App() {
     SetAvatarPopupOpen(false);
     SetEditProfileOpen(false);
     SetAddPlacePopupOpen(false);
-    handleCardClick('');
+    setSelectedCard({name: '', link: ''})
   }
   return (
     <div className="App">
       <>
         <Header logo={logo} />
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={setSelectedCard} />
         <Footer />
-        <PopupWithForm name={'profile'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm name={'profile'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'} buttonClassName={'popup__submit-button'} >
           <input
             type="text"
             id="name-input"
@@ -61,11 +61,8 @@ function App() {
           <span className="job-input-error popup__input-error">
             Необходимо заполнить данное поле
           </span>
-          <button type="submit" className="popup__submit-button">
-            Сохранить
-          </button>
         </PopupWithForm>
-        <PopupWithForm name={'image'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm name={'image'} title={'Новое место'} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={'Создать'} buttonClassName={'popup__submit-button'} >
           <input
             type="text"
             id="title-input"
@@ -92,17 +89,10 @@ function App() {
           <span className="link-input-error popup__input-error">
             Необходимо заполнить данное поле
           </span>
-          <button type="submit" className="popup__submit-button">
-            Создать
-          </button>
         </PopupWithForm>{/*id="add-image-form" У формы больше нет!!!*/}
         <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-        <PopupWithForm name={'delete'} title={'Вы уверены?'}>
-          <button type="submit" className="popup__submit-button popup__submit-button_type_agree">
-            Да
-          </button>
-        </PopupWithForm>
-        <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+        <PopupWithForm name={'delete'} title={'Вы уверены?'} buttonText={'Да'} buttonClassName={'popup__submit-button popup__submit-button_type_agree'} />
+        <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText={'Сохранить'} buttonClassName={'popup__submit-button popup__submit-button_type_avatar'}>
           <input
             type="url"
             id="avatar-link-input"
@@ -115,26 +105,7 @@ function App() {
           <span className="avatar-link-input-error popup__input-error">
             Необходимо заполнить данное поле
           </span>
-          <button
-            type="submit"
-            className="popup__submit-button popup__submit-button_type_avatar"
-          >
-            Сохранить
-          </button>
         </PopupWithForm>
-        <template id="image-element">
-          <li className="elements__element">
-            <button type="button" className="elements__delete-button" />
-            <img className="elements__image" src="#" alt="" />
-            <div className="elements__info">
-              <h2 className="elements__text" />
-              <div className="elements__like">
-                <button type="button" className="elements__like-button" />
-                <p className="elements__counter">0</p>
-              </div>
-            </div>
-          </li>
-        </template>
       </>
     </div>
   );

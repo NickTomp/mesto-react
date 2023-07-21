@@ -1,6 +1,6 @@
 function ImagePopup(props) {
   return (
-    <div className={props.card === '' ? 'popup popup_type_view' : 'popup popup_type_view popup_opened'} id="view-popup">
+    <div className={props.card.link === '' ? 'popup popup_type_view' : 'popup popup_type_view popup_opened'} id="view-popup">
       <div className="popup__container popup__container_type_view">
         <button
           onClick={props.onClose}
