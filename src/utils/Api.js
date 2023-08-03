@@ -23,7 +23,7 @@ class Api {
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
-                about: data.job
+                about: data.about
             })
         })
        .then(this._getDataFromResponse)
@@ -40,22 +40,22 @@ class Api {
         .then(this._getDataFromResponse)
     }
     deleteCard(card) {
-        return fetch(`${this._baseUrl}/cards/${card.id}`, {
+        return fetch(`${this._baseUrl}/cards/${card._id}`, {
             method: 'DELETE',
             headers: this._headers,
         })
         .then(this._getDataFromResponse)
     }
-    setLike(cardId) {
+    changeLikeCardStatus(cardId, isLiked) {
+        if(isLiked) {
+            return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+                method: 'DELETE',
+                headers: this._headers,
+            })
+            .then(this._getDataFromResponse)
+        }
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: 'PUT',
-            headers: this._headers,
-        })
-        .then(this._getDataFromResponse)
-    }
-    removeLike(cardId) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'DELETE',
             headers: this._headers,
         })
         .then(this._getDataFromResponse)
