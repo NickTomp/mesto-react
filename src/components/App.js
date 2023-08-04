@@ -9,7 +9,7 @@ import EditProfilePopup from './EditProfilePopup.js'
 import EditAvatarPopup from './EditAvatarPopup.js'
 import AddPlacePopup from './AddPlacepopup.js'
 import PopupWithForm from './PopupWithForm.js';
-import api from '../utils/Api.js'
+import api from '../utils/api.js'
 import { currentUserContext } from '../contexts/CurrentUserContext.js';
 function App() {
   const [isEditAvatarPopupOpen, SetAvatarPopupOpen] = React.useState(false);
@@ -51,14 +51,16 @@ function App() {
     api.changeLikeCardStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+      })
+      .catch((err) => alert(`${err} - не удалось загрузить данные`));
   }
   function handleCardDelete(card, cards, setCards) {
     api.deleteCard(card)
     .then(() => {
       const newArray = cards.filter(item => item._id !== card._id)
       setCards(newArray);
-    });
+    })
+    .catch((err) => alert(`${err} - не удалось удалить карточку`));
   }
   function handleUpdateUser(data) {
     api.editProfileInfo(data)
@@ -66,6 +68,7 @@ function App() {
       setCurrentUser(data);
       closeAllPopups();
     })
+    .catch((err) => alert(`${err} - не удалось отредактировать профиль`));
   }
   function handleUpdateAvatar(link) {
     api.editProfileAvatar(link)
@@ -73,12 +76,14 @@ function App() {
       setCurrentUser(data);
       closeAllPopups();
     })
+    .catch((err) => alert(`${err} - не удалось обновить аватар`));
   }
   function handleAddPlace (link, title) {
     api.addNewCard(link, title)
     .then((newCard) => {
       setCardsArray([newCard, ...cards])
     })
+    .catch((err) => alert(`${err} - не удалось добавить изображение`));
   }
   return (
     <div className="App">

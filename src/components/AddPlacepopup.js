@@ -1,5 +1,6 @@
 import React from 'react'
 import PopupWithForm from './PopupWithForm.js';
+
 function AddPlacePopup(props) {
   const titleRef = React.useRef();
   const linkRef = React.useRef();
@@ -20,12 +21,12 @@ function AddPlacePopup(props) {
   }
   return (
     <PopupWithForm
-      name={'image'}
-      title={'Новое место'}
+      name='image'
+      title='Новое место'
       isOpen={props.isOpen}
       onClose={props.onClose}
-      buttonText={'Создать'}
-      buttonClassName={'popup__submit-button'}
+      buttonText='Создать'
+      buttonClassName='popup__submit-button'
       onSubmit={handleSubmit} >
       <input
         ref={titleRef}
