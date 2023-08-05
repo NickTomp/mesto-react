@@ -103,16 +103,12 @@ function App() {
         isOpen={isEditProfilePopupOpen} 
         onClose={closeAllPopups} 
         onUpdateUser={handleUpdateUser}
-        /> 
-
-
+        />
         <AddPlacePopup 
         isOpen={isAddPlacePopupOpen} 
         onClose={closeAllPopups} 
         onAddPlace={handleAddPlace}
         />
-
-
         <ImagePopup 
         card={selectedCard} 
         onClose={closeAllPopups} 
