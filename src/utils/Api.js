@@ -28,6 +28,13 @@ class Api {
         })
        .then(this._getDataFromResponse)
     }
+    deleteCard(card) {
+        return fetch(`${this._baseUrl}/cards/${card._id}`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+        .then(this._getDataFromResponse)
+    }
     addNewCard(cardLink, cardName) {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
@@ -36,13 +43,6 @@ class Api {
                 name: cardName,
                 link: cardLink
             })
-        })
-        .then(this._getDataFromResponse)
-    }
-    deleteCard(card) {
-        return fetch(`${this._baseUrl}/cards/${card._id}`, {
-            method: 'DELETE',
-            headers: this._headers,
         })
         .then(this._getDataFromResponse)
     }
